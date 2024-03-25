@@ -16,5 +16,5 @@ for /d %%d in (*) do (
 	)
 	cd ..
 )
-echo [FINALIZED] Atualizacao finalizada
+echo ### [FINALIZED] Atualizacao finalizada
 pause
