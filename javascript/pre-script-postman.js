@@ -1,13 +1,13 @@
 var url = pm.environment.get("endereco");
 var accessToken = pm.environment.get("tokenBearer");
-var tokenExpiry = pm.globals.get("tokenExpiry");
+var tokenExpiry = pm.environment.get("tokenExpiry");
 var username = pm.environment.get("username");
 var password = pm.environment.get("password");
 var bascod = pm.environment.get("bascod")
 var userCode = "819"
 
 // Checar se token de acesso é diferente de null ou se o token expirou
-if (!accessToken || new Date() > new Date(tokenExpiry)) {
+if (!accessToken || !tokenExpiry || new Date() > new Date(tokenExpiry)) {
     // Enviar requisição POST no endpoint auth
     pm.sendRequest({
         url: url + "/auth",
@@ -32,7 +32,7 @@ if (!accessToken || new Date() > new Date(tokenExpiry)) {
 
             // Pegando o token e setando variaveis de ambiente e globais
             pm.environment.set("tokenBearer", res.json().token);
-            pm.globals.set("tokenExpiry", new Date().addHours(1));
+            pm.environment.set("tokenExpiry", new Date().addHours(1));
 
             console.log("Token de acesso expirado, enviando requisição para atualizar o token");
         } else {
