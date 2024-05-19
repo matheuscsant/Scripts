@@ -1,5 +1,9 @@
 @echo off
 
+title ATUALIZAR REPOSITORIOS
+
+cd ..
+
 for /d %%d in (*) do (
 	cd %%d
 	if exist .git (
