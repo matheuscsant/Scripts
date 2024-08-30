@@ -30,7 +30,6 @@ if (!accessToken || !tokenExpiry || new Date() > new Date(tokenExpiry)) {
 
         if (err === null && res.code === 200) {
 
-            // Pegando o token e setando variaveis de ambiente e globais
             // Getting token and set enviroment variables and global variables
             pm.environment.set("tokenBearer", res.json().token);
             pm.environment.set("tokenExpiry", new Date().addHours(1));
