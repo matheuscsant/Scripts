@@ -8,7 +8,7 @@ var userCode = "819"
 
 // Checks if access token is non-null or if token has expired
 if (!accessToken || !tokenExpiry || new Date() > new Date(tokenExpiry)) {
-    // Send POST request at endpoint auth
+    // Send POST request at auth endpoint
     pm.sendRequest({
         url: url + "/auth",
         method: "POST",
