@@ -6,9 +6,9 @@ var password = pm.environment.get("password");
 var bascod = pm.environment.get("bascod")
 var userCode = "819"
 
-// Checar se token de acesso é diferente de null ou se o token expirou
+// Checks if access token is non-null or if token has expired
 if (!accessToken || !tokenExpiry || new Date() > new Date(tokenExpiry)) {
-    // Enviar requisição POST no endpoint auth
+    // Send POST request at endpoint auth
     pm.sendRequest({
         url: url + "/auth",
         method: "POST",
@@ -31,18 +31,23 @@ if (!accessToken || !tokenExpiry || new Date() > new Date(tokenExpiry)) {
         if (err === null && res.code === 200) {
 
             // Pegando o token e setando variaveis de ambiente e globais
+            // Getting token and set enviroment variables and global variables
             pm.environment.set("tokenBearer", res.json().token);
             pm.environment.set("tokenExpiry", new Date().addHours(1));
 
+            // Printing ok message
             console.log("Token de acesso expirado, enviando requisição para atualizar o token");
         } else {
+            // Request failed
             console.error("Erro na requisição: " + (err == null ? res.code + " - " + res.json().error + " - " + res.json().message : err));
         }
     });
 } else {
+    // Token hasn't expired
     console.log("Token de acesso dentro da validade, nenhuma requisição enviada.");
 }
 
+// Function to add hours to the Date object
 Date.prototype.addHours = function (h) {
     this.setHours(this.getHours() + h);
     return this;
